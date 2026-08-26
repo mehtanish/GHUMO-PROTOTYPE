@@ -1,0 +1,454 @@
+.guide-portal-page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  padding-bottom: 4rem;
+}
+
+.guide-portal-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 1.5rem 2rem;
+}
+
+.portal-header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.guide-profile-badge {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.portal-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent-gold);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.portal-guide-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.portal-guide-name h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.verified-badge-icon {
+  color: #38ef7d;
+}
+
+.portal-university {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.portal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.online-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(56, 239, 125, 0.1);
+  border: 1px solid rgba(56, 239, 125, 0.3);
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  color: #38ef7d;
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #38ef7d;
+  box-shadow: 0 0 8px #38ef7d;
+}
+
+.portal-main-content {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.portal-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.metric-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+}
+
+.metric-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-icon-wrap.gold {
+  background: rgba(212, 160, 23, 0.15);
+  color: var(--color-accent-gold);
+}
+
+.metric-icon-wrap.green {
+  background: rgba(56, 239, 125, 0.15);
+  color: #38ef7d;
+}
+
+.metric-icon-wrap.purple {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+}
+
+.metric-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-label {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.metric-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.portal-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.portal-section-header h2 {
+  font-size: 1.4rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.filter-tab-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--color-surface);
+  padding: 0.3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.filter-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn.active {
+  background: var(--color-accent-gold);
+  color: #111;
+  font-weight: 600;
+}
+
+.bookings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.booking-card {
+  padding: 1.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.booking-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.traveler-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.traveler-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.traveler-name {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.traveler-location {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.2rem 0 0 0;
+}
+
+.session-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.session-tag.virtual {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.session-tag.physical {
+  background: rgba(234, 179, 8, 0.15);
+  color: #eab308;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.booking-details-body {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+}
+
+.booking-topic {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.booking-notes {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.booking-meta-row {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.meta-item.price {
+  color: #38ef7d;
+  font-weight: 600;
+}
+
+.booking-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.completed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: #38ef7d;
+  font-weight: 500;
+}
+
+/* Chat Modal */
+.chat-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1.5rem;
+}
+
+.chat-modal-box {
+  width: 100%;
+  max-width: 550px;
+  height: 520px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.chat-modal-header {
+  padding: 1rem 1.25rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-user-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.chat-user-header h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.chat-user-header p {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.chat-modal-messages {
+  flex: 1;
+  padding: 1.25rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.chat-msg-bubble {
+  max-width: 80%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-msg-bubble.guide {
+  align-self: flex-end;
+  background: var(--color-accent-gold);
+  color: #111;
+}
+
+.chat-msg-bubble.traveler {
+  align-self: flex-start;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.msg-sender {
+  font-size: 0.7rem;
+  font-weight: 700;
+  opacity: 0.8;
+  margin-bottom: 0.2rem;
+}
+
+.msg-text {
+  font-size: 0.9rem;
+}
+
+.msg-time {
+  font-size: 0.65rem;
+  align-self: flex-end;
+  opacity: 0.7;
+  margin-top: 0.3rem;
+}
+
+.chat-modal-input {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+}
+
+.chat-modal-input input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+}
+
+.empty-bookings-card {
+  text-align: center;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}

@@ -1,0 +1,44 @@
+.wanderly-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Padding */
+.wanderly-card--p-none { padding: 0; }
+.wanderly-card--p-sm { padding: var(--spacing-4); }
+.wanderly-card--p-md { padding: var(--spacing-6); }
+.wanderly-card--p-lg { padding: var(--spacing-8); }
+
+/* Variants */
+.wanderly-card--default {
+  background-color: var(--color-surface);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+}
+
+.wanderly-card--interactive {
+  background-color: var(--color-surface);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+.wanderly-card--interactive:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+.wanderly-card--glass {
+  background: rgba(17, 26, 58, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.wanderly-card--outline {
+  background-color: transparent;
+  border: 1px solid var(--border-light);
+}

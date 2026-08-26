@@ -1,0 +1,107 @@
+.passport-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.grid { display: grid; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.gap-6 { gap: var(--spacing-6); }
+.font-700 { font-weight: 700; }
+.text-3xl { font-size: 2.5rem; }
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.badge-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.badge-card.locked {
+  opacity: 0.6;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+.badge-card.unlocked {
+  border-color: rgba(248, 150, 30, 0.3);
+  background-color: rgba(248, 150, 30, 0.05);
+}
+
+.badge-icon-wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-card.unlocked .badge-icon-wrapper {
+  background: linear-gradient(135deg, rgba(248, 150, 30, 0.2), rgba(248, 150, 30, 0.5));
+  color: var(--color-accent-gold);
+  box-shadow: 0 0 20px rgba(248, 150, 30, 0.3);
+}
+
+.badge-card.locked .badge-icon-wrapper {
+  background-color: var(--color-surface-hover);
+  color: var(--text-tertiary);
+}
+
+.badge-icon-wrapper.large {
+  width: 140px;
+  height: 140px;
+  background: linear-gradient(135deg, rgba(248, 150, 30, 0.2), rgba(248, 150, 30, 0.6));
+  color: var(--color-accent-gold);
+  box-shadow: 0 0 40px rgba(248, 150, 30, 0.4);
+}
+
+.lock-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--color-surface);
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.passport-modal {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-accent-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-10);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 50px rgba(248, 150, 30, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.celebration-rays {
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(248, 150, 30, 0.1) 20deg, transparent 40deg);
+  animation: spin 10s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.passport-modal > * {
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .grid-3 { grid-template-columns: 1fr; }
+}

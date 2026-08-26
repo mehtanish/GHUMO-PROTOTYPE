@@ -1,0 +1,88 @@
+.wanderly-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  border-radius: var(--radius-full);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.wanderly-btn--full {
+  width: 100%;
+}
+
+/* Sizes */
+.wanderly-btn--sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.wanderly-btn--md {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.wanderly-btn--lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* Variants */
+.wanderly-btn--primary {
+  background-color: var(--color-accent-gold);
+  color: var(--color-background);
+}
+
+.wanderly-btn--primary:hover {
+  background-color: var(--color-accent-gold-hover);
+  box-shadow: 0 0 15px rgba(248, 150, 30, 0.4);
+}
+
+.wanderly-btn--secondary {
+  background-color: var(--color-secondary-indigo);
+  color: var(--text-primary);
+}
+
+.wanderly-btn--secondary:hover {
+  background-color: var(--color-secondary-blue);
+}
+
+.wanderly-btn--outline {
+  background-color: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+
+.wanderly-btn--outline:hover {
+  border-color: var(--border-hover);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.wanderly-btn--ghost {
+  background-color: transparent;
+  color: var(--text-secondary);
+}
+
+.wanderly-btn--ghost:hover {
+  color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.wanderly-btn--glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.wanderly-btn--glass:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+}

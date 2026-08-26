@@ -1,0 +1,376 @@
+.guides-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.filters-bar {
+  display: flex;
+  gap: var(--spacing-4);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 300px;
+}
+
+.filter-chips {
+  display: flex;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface);
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.chip:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--text-primary);
+}
+
+.chip.active {
+  background-color: rgba(248, 150, 30, 0.1);
+  color: var(--color-accent-gold);
+  border-color: rgba(248, 150, 30, 0.3);
+}
+
+/* Guides Grid */
+.guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.guide-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.guide-header {
+  display: flex;
+  gap: var(--spacing-4);
+  align-items: center;
+}
+
+.guide-avatar-wrapper {
+  position: relative;
+}
+
+.guide-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: var(--color-surface-hover);
+  border: 2px solid var(--border-light);
+}
+
+.online-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 14px;
+  height: 14px;
+  background-color: var(--color-success);
+  border-radius: 50%;
+  border: 2px solid var(--color-surface);
+}
+
+.guide-basic-info h3 {
+  font-size: 1.25rem;
+}
+
+.guide-stats {
+  display: flex;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+}
+
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.stat-pill.offline-pill {
+  background-color: rgba(212, 160, 23, 0.15);
+  color: var(--color-accent-gold);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  font-weight: 500;
+}
+
+.guide-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: var(--color-bg);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* Modal Overlay & Session Option Cards */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1.5rem;
+}
+
+.payment-modal {
+  width: 100%;
+  max-width: 580px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.session-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.session-option-card {
+  padding: 1.1rem;
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.session-option-card:hover {
+  border-color: var(--color-accent-gold);
+
+}
+
+.session-option-card.selected {
+  border-color: var(--color-accent-gold);
+  background: rgba(212, 160, 23, 0.08);
+  box-shadow: 0 0 12px rgba(212, 160, 23, 0.2);
+}
+
+.option-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.option-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.price-tag {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+}
+
+.price-tag.gold {
+  color: var(--color-accent-gold);
+}
+
+.option-desc {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.payment-summary {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+}
+
+.offline-pass-card {
+  background: rgba(212, 160, 23, 0.1);
+  border: 1px dashed var(--color-accent-gold);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.pass-title {
+  font-weight: 700;
+  color: var(--color-accent-gold);
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.pass-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+}
+
+.pass-row strong {
+  color: var(--color-text-primary);
+}
+
+/* Student Guide AI Chatbot Modal */
+.guide-chat-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 120;
+  padding: 1.5rem;
+}
+
+.guide-chat-modal-box {
+  width: 100%;
+  max-width: 560px;
+  height: 550px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+}
+
+.guide-chat-modal-header {
+  padding: 1rem 1.25rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guide-chat-user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.guide-chat-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent-gold);
+}
+
+.guide-chat-user-info h3 {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.chat-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.guide-chat-messages-container {
+  flex: 1;
+  padding: 1.25rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.guide-chat-bubble {
+  max-width: 82%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.guide-chat-bubble.user {
+  align-self: flex-end;
+  background: var(--color-accent-gold);
+  color: #111;
+}
+
+.guide-chat-bubble.guide {
+  align-self: flex-start;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.bubble-sender {
+  font-size: 0.7rem;
+  font-weight: 700;
+  opacity: 0.8;
+  margin-bottom: 0.2rem;
+}
+
+.bubble-text {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.bubble-time {
+  font-size: 0.65rem;
+  align-self: flex-end;
+  opacity: 0.7;
+  margin-top: 0.3rem;
+}
+
+.guide-chat-input-row {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+}
+
+.guide-chat-input-row input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+}
+
+.guide-chat-input-row input:focus {
+  border-color: var(--color-accent-gold);
+  outline: none;
+}

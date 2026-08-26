@@ -1,0 +1,135 @@
+.my-trips-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.trips-tabs {
+  display: flex;
+  gap: var(--spacing-6);
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: var(--spacing-2);
+}
+
+.trip-tab {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  padding-bottom: var(--spacing-2);
+  position: relative;
+  transition: color 0.2s;
+}
+
+.trip-tab:hover {
+  color: var(--text-secondary);
+}
+
+.trip-tab.active {
+  color: var(--color-accent-gold);
+}
+
+.trip-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-accent-gold);
+  box-shadow: 0 0 8px var(--color-accent-gold);
+}
+
+.trips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.trip-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.trip-card-header {
+  height: 160px;
+  position: relative;
+}
+
+.trip-card-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trip-status-badge {
+  position: absolute;
+  top: var(--spacing-3);
+  right: var(--spacing-3);
+  background-color: rgba(5, 8, 20, 0.7);
+  backdrop-filter: blur(4px);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+}
+
+.trip-card-content {
+  padding: var(--spacing-5);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.trip-card-content h3 {
+  font-size: 1.25rem;
+}
+
+.trip-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.trip-detail-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.trip-actions {
+  margin-top: auto;
+}
+
+.ml-2 {
+  margin-left: 8px;
+}
+
+/* Empty State */
+.empty-trips-state {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+}
+
+.empty-state-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
