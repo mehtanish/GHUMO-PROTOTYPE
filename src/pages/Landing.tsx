@@ -2,11 +2,23 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { SpecularButton } from '../components/SpecularButton';
+import { FlyingPosters } from '../components/FlyingPosters';
 import { Card } from '../components/Card';
 import { mockDestinations, themes } from '../store/mockData';
-import { MapPin, Star } from 'lucide-react';
+import { MapPin, Star, Sparkles, Compass } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Landing.css';
+
+const FLYING_POSTER_ITEMS = [
+  'https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=800&auto=format&fit=crop', // Kashmir Dal Lake
+  'https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=800&auto=format&fit=crop', // Jaipur Amer Fort
+  'https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=800&auto=format&fit=crop', // Udaipur Lake Palace
+  'https://images.unsplash.com/photo-1561361066-608b411d7395?q=80&w=800&auto=format&fit=crop', // Varanasi Ganga Ghats
+  'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=800&auto=format&fit=crop', // Kerala Backwaters
+  'https://images.unsplash.com/photo-1600100397608-f010f443bbf6?q=80&w=800&auto=format&fit=crop', // Hampi Ancient Stone
+  'https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=800&auto=format&fit=crop', // Taj Mahal Agra
+  'https://images.unsplash.com/photo-1509233725247-49e657c54213?q=80&w=800&auto=format&fit=crop'  // Thar Desert Golden Dunes
+];
 
 export const Landing: React.FC = () => {
   const navigate = useNavigate();
@@ -58,10 +70,39 @@ export const Landing: React.FC = () => {
             >
               Plan My Trip
             </SpecularButton>
-            <Button size="lg" variant="glass" onClick={() => document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth' })}>
-              Explore India
+            <Button size="lg" variant="glass" onClick={() => document.getElementById('flying-showcase')?.scrollIntoView({ behavior: 'smooth' })}>
+              Explore 3D Odyssey
             </Button>
           </motion.div>
+        </div>
+      </section>
+
+      {/* 3D Flying Posters Interactive Showcase */}
+      <section id="flying-showcase" className="flying-posters-showcase-section">
+        <div className="section-header text-center">
+          <div className="showcase-badge mb-3">
+            <Sparkles size={14} className="text-gold mr-1" />
+            <span>INTERACTIVE 3D PERSPECTIVE</span>
+          </div>
+          <h2 className="section-title">Fly Across India's Landscapes</h2>
+          <p className="text-secondary max-w-xl mx-auto mt-2">
+            Experience the real-time WebGL perspective warp. Drag or scroll inside to float through Himalayan peaks, Rajasthani forts, and tranquil backwaters.
+          </p>
+        </div>
+
+        <div className="flying-posters-wrapper">
+          <div className="flying-posters-overlay-gradient"></div>
+          <FlyingPosters 
+            items={FLYING_POSTER_ITEMS}
+            planeWidth={340}
+            planeHeight={340}
+            distortion={3.2}
+            scrollEase={0.02}
+          />
+          <div className="posters-hint-overlay">
+            <Compass size={16} className="text-gold animate-spin-slow" />
+            <span>Drag or scroll to navigate the 3D gallery</span>
+          </div>
         </div>
       </section>
 

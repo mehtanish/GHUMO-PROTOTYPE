@@ -246,3 +246,79 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* 3D Flying Posters Showcase */
+.flying-posters-showcase-section {
+  padding: var(--spacing-16) var(--spacing-8);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.showcase-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 184, 0, 0.12);
+  border: 1px solid rgba(255, 184, 0, 0.3);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: var(--color-accent-gold);
+}
+
+.flying-posters-wrapper {
+  position: relative;
+  height: 540px;
+  width: 100%;
+  border-radius: var(--radius-lg, 24px);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 184, 0, 0.04) 0%, rgba(15, 18, 25, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  margin-top: var(--spacing-6);
+}
+
+.flying-posters-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(5, 7, 10, 0.7) 100%);
+}
+
+.posters-hint-overlay {
+  position: absolute;
+  bottom: var(--spacing-4);
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(5, 7, 10, 0.8);
+  backdrop-filter: blur(8px);
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  z-index: 5;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
