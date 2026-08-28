@@ -3,11 +3,64 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { SpecularButton } from '../components/SpecularButton';
 import { FlyingPosters } from '../components/FlyingPosters';
+import { InfiniteMenu } from '../components/InfiniteMenu';
+import type { InfiniteMenuItem } from '../components/InfiniteMenu';
 import { Card } from '../components/Card';
 import { mockDestinations, themes } from '../store/mockData';
-import { MapPin, Star, Sparkles, Compass } from 'lucide-react';
+import { MapPin, Star, Sparkles, Compass, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Landing.css';
+
+const INFINITE_MENU_ITEMS: InfiniteMenuItem[] = [
+  {
+    image: 'https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=600&h=600&fit=crop&auto=format',
+    link: '/app/explore',
+    title: 'Kashmir Valley',
+    description: 'Snow-capped peaks, shikara boat cruises & cedar houseboats on pristine Dal Lake.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=600&h=600&fit=crop&auto=format',
+    link: '/app/explore',
+    title: 'Jaipur Forts',
+    description: 'Amber sandstone ramparts, mirror palaces and royal Rajasthani heritage feasts.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=600&h=600&fit=crop&auto=format',
+    link: '/app/explore',
+    title: 'Udaipur Palaces',
+    description: 'Floating marble palaces, sunset cruises on Lake Pichola and Mewar miniature art.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1561361066-608b411d7395?q=80&w=600&h=600&fit=crop&auto=format',
+    link: '/app/explore',
+    title: 'Varanasi Ghats',
+    description: 'Spiritual dawn boat rides, evening Ganga aarti and ancient labyrinth alleys.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=600&h=600&fit=crop&auto=format',
+    link: '/app/explore',
+    title: 'Kerala Waters',
+    description: 'Tranquil palm-fringed backwaters, spice plantations and coastal lagoons.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1509233725247-49e657c54213?q=80&w=600&h=600&fit=crop&auto=format',
+    link: '/app/explore',
+    title: 'Thar Desert',
+    description: 'Golden dunes under starry skies, folk song campfire nights and camel safaris.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=600&h=600&fit=crop&auto=format',
+    link: '/app/explore',
+    title: 'Taj Mahal',
+    description: 'Iconic marble monument of love, Mughal symmetrical gardens and Yamuna sunsets.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1600100397608-f010f443bbf6?q=80&w=600&h=600&fit=crop&auto=format',
+    link: '/app/explore',
+    title: 'Hampi Ruins',
+    description: 'UNESCO boulders, Vijayanagara stone temples and ancient chariot monoliths.'
+  }
+];
 
 const FLYING_POSTER_ITEMS = [
   'https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=800&auto=format&fit=crop', // Kashmir Dal Lake
@@ -133,6 +186,29 @@ export const Landing: React.FC = () => {
               </div>
             </Card>
           ))}
+        </div>
+      </section>
+
+      {/* 3D Infinite Destination Sphere Menu */}
+      <section className="infinite-menu-showcase-section">
+        <div className="section-header text-center">
+          <div className="showcase-badge mb-3">
+            <Globe size={14} className="text-gold mr-1" />
+            <span>INFINITE 3D DESTINATIONS SPHERE</span>
+          </div>
+          <h2 className="section-title">Infinite Journeys</h2>
+          <p className="text-secondary max-w-xl mx-auto mt-2">
+            Rotate the spherical holographic menu to explore curated travel hubs across India. Click the center action button to embark.
+          </p>
+        </div>
+
+        <div className="infinite-menu-container-box">
+          <InfiniteMenu 
+            items={INFINITE_MENU_ITEMS}
+            scale={0.92}
+            backgroundColor="transparent"
+            onItemClick={() => navigate('/login')}
+          />
         </div>
       </section>
 
