@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
+import { SpecularButton } from '../components/SpecularButton';
 import { Input } from '../components/Input';
 import { MapPin, Calendar, Sparkles, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -335,9 +336,9 @@ export const PlanTrip: React.FC = () => {
               <Button variant="outline" onClick={() => setCurrentStep(0)}>
                 Plan Another
               </Button>
-              <Button variant="primary" onClick={handleSaveAndConfirm}>
-                <CheckCircle2 size={18} className="mr-2" /> Save & View in My Trips
-              </Button>
+              <SpecularButton size="md" onClick={handleSaveAndConfirm}>
+                <CheckCircle2 size={18} /> Save & View in My Trips
+              </SpecularButton>
             </div>
           </motion.div>
         );

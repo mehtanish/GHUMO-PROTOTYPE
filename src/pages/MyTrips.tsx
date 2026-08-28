@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
+import { SpecularButton } from '../components/SpecularButton';
 import { Calendar, Users, DollarSign, ExternalLink } from 'lucide-react';
 import { getStoredTrips } from '../store/tripStore';
 import type { Trip } from '../store/tripStore';
@@ -46,9 +47,9 @@ export const MyTrips: React.FC = () => {
           <h1 className="section-title text-uppercase mb-2" style={{fontSize: '0.875rem', letterSpacing: '0.1em', color: 'var(--text-tertiary)'}}>YOUR JOURNEYS</h1>
           <h2>My Trips</h2>
         </div>
-        <Button variant="primary" onClick={() => navigate('/app/plan')}>
+        <SpecularButton size="md" onClick={() => navigate('/app/plan')}>
           Plan New Trip
-        </Button>
+        </SpecularButton>
       </header>
 
       {/* Tabs */}
@@ -122,9 +123,9 @@ export const MyTrips: React.FC = () => {
           <div className="empty-state-content">
             <h3>No trips on the board yet.</h3>
             <p className="text-secondary mt-2">Start exploring India and build your perfect itinerary.</p>
-            <Button variant="primary" className="mt-6" onClick={() => navigate('/app/plan')}>
+            <SpecularButton size="md" className="mt-6" onClick={() => navigate('/app/plan')}>
               Plan a trip
-            </Button>
+            </SpecularButton>
           </div>
         </Card>
       )}

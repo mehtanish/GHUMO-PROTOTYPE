@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
+import { SpecularButton } from '../components/SpecularButton';
 import { AnimatedNumber } from '../components/AnimatedNumber';
 import { getStoredTrips } from '../store/tripStore';
 import { getGuidesHiredCount } from '../store/guideStore';
@@ -60,9 +61,9 @@ export const Dashboard: React.FC = () => {
               <div className="hero-empty-content">
                 <h2>Your next adventure is waiting.</h2>
                 <div className="hero-empty-actions mt-4">
-                  <Button variant="primary" size="lg" onClick={() => navigate('/app/plan')}>
+                  <SpecularButton size="lg" onClick={() => navigate('/app/plan')}>
                     Plan your first trip
-                  </Button>
+                  </SpecularButton>
                   <Button variant="glass" size="lg" onClick={() => navigate('/app/explore')}>
                     Explore ideas
                   </Button>

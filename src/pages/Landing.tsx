@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
+import { SpecularButton } from '../components/SpecularButton';
 import { Card } from '../components/Card';
 import { mockDestinations, themes } from '../store/mockData';
 import { MapPin, Star } from 'lucide-react';
@@ -46,9 +47,17 @@ export const Landing: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <Button size="lg" variant="primary" onClick={() => navigate('/login')}>
+            <SpecularButton 
+              size="lg" 
+              tint="var(--color-accent-gold)" 
+              tintOpacity={0.2} 
+              lineColor="#FFDCA1" 
+              baseColor="rgba(255, 184, 0, 0.5)" 
+              textColor="#FFF" 
+              onClick={() => navigate('/login')}
+            >
               Plan My Trip
-            </Button>
+            </SpecularButton>
             <Button size="lg" variant="glass" onClick={() => document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth' })}>
               Explore India
             </Button>
@@ -120,7 +129,9 @@ export const Landing: React.FC = () => {
               <li>Hidden Gems</li>
             </ul>
             <div className="mt-8">
-              <Button variant="primary">Start Your Journey</Button>
+              <SpecularButton size="lg" onClick={() => navigate('/register')}>
+                Start Your Journey
+              </SpecularButton>
             </div>
           </div>
           <div className="beyond-image-container">
