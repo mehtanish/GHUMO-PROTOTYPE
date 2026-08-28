@@ -14,16 +14,14 @@ export interface FlyingPostersProps {
   style?: React.CSSProperties;
 }
 
-const vertexShader = `
+const vertexShader = `#version 300 es
 precision highp float;
 
-attribute vec3 position;
-attribute vec2 uv;
-attribute vec3 normal;
+in vec3 position;
+in vec2 uv;
 
 uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
-uniform mat3 normalMatrix;
 
 uniform float uPosition;
 uniform float uTime;
@@ -32,10 +30,10 @@ uniform vec3 distortionAxis;
 uniform vec3 rotationAxis;
 uniform float uDistortion;
 
-varying vec2 vUv;
-varying vec3 vNormal;
+out vec2 vUv;
 
-float PI = 3.141592653589793238;
+#define PI 3.141592653589793238
+
 mat4 rotationMatrix(vec3 axis, float angle) {
     axis = normalize(axis);
     float s = sin(angle);
@@ -56,9 +54,12 @@ vec3 rotate(vec3 v, vec3 axis, float angle) {
 }
 
 float qinticInOut(float t) {
-  return t < 0.5
-    ? 16.0 * pow(t, 5.0)
-    : -0.5 * abs(pow(2.0 * t - 2.0, 5.0)) + 1.0;
+  if (t < 0.5) {
+    return 16.0 * t * t * t * t * t;
+  } else {
+    float x = 2.0 * t - 2.0;
+    return -0.5 * (x * x * x * x * x) + 1.0;
+  }
 }
 
 void main() {
@@ -68,7 +69,7 @@ void main() {
   vec3 newpos = position;
   float offset = (dot(distortionAxis, position) + norm / 2.) / norm;
   float localprogress = clamp(
-    (fract(uPosition * 5.0 * 0.01) - 0.01 * uDistortion * offset) / (1. - 0.01 * uDistortion),
+    (fract(uPosition * 5.0 * 0.01) - 0.01 * uDistortion * offset) / max(0.001, 1. - 0.01 * uDistortion),
     0.,
     2.
   );
@@ -79,18 +80,19 @@ void main() {
 }
 `;
 
-const fragmentShader = `
+const fragmentShader = `#version 300 es
 precision highp float;
 
 uniform vec2 uImageSize;
 uniform vec2 uPlaneSize;
 uniform sampler2D tMap;
 
-varying vec2 vUv;
+in vec2 vUv;
+out vec4 fragColor;
 
 void main() {
-  vec2 imageSize = uImageSize;
-  vec2 planeSize = uPlaneSize;
+  vec2 imageSize = max(uImageSize, vec2(1.0, 1.0));
+  vec2 planeSize = max(uPlaneSize, vec2(1.0, 1.0));
 
   float imageAspect = imageSize.x / imageSize.y;
   float planeAspect = planeSize.x / planeSize.y;
@@ -103,8 +105,9 @@ void main() {
   }
 
   vec2 uv = vUv * scale + (1.0 - scale) * 0.5;
+  uv = clamp(uv, 0.0, 1.0);
 
-  gl_FragColor = texture2D(tMap, uv);
+  fragColor = texture(tMap, uv);
 }
 `;
 
@@ -213,7 +216,10 @@ class Media {
 
   createShader() {
     const texture = new Texture(this.gl, {
-      generateMipmaps: false
+      generateMipmaps: false,
+      image: new Uint8Array([20, 24, 35, 255]),
+      width: 1,
+      height: 1
     });
 
     this.program = new Program(this.gl, {
@@ -224,25 +230,30 @@ class Media {
       uniforms: {
         tMap: { value: texture },
         uPosition: { value: 0 },
-        uPlaneSize: { value: [0, 0] },
-        uImageSize: { value: [0, 0] },
+        uPlaneSize: { value: [1, 1] },
+        uImageSize: { value: [1, 1] },
         uSpeed: { value: 0 },
         rotationAxis: { value: [0, 1, 0] },
         distortionAxis: { value: [1, 1, 0] },
         uDistortion: { value: this.distortion },
-        uViewportSize: { value: [this.viewport.width, this.viewport.height] },
         uTime: { value: 0 }
       },
       cullFace: false
     });
 
+    if (this.program && !this.program.uniformLocations) {
+      this.program.uniformLocations = new Map();
+    }
+
     const img = new Image();
     img.crossOrigin = 'anonymous';
-    img.src = this.image;
     img.onload = () => {
-      texture.image = img;
-      this.program.uniforms.uImageSize.value = [img.naturalWidth, img.naturalHeight];
+      if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+        texture.image = img;
+        this.program.uniforms.uImageSize.value = [img.naturalWidth, img.naturalHeight];
+      }
     };
+    img.src = this.image;
   }
 
   createMesh() {
@@ -254,19 +265,23 @@ class Media {
   }
 
   setScale() {
-    this.plane.scale.x = (this.viewport.width * this.planeWidth) / this.screen.width;
-    this.plane.scale.y = (this.viewport.height * this.planeHeight) / this.screen.height;
+    const screenW = Math.max(1, this.screen?.width || 1);
+    const screenH = Math.max(1, this.screen?.height || 1);
+    const viewW = Math.max(1, this.viewport?.width || 1);
+    const viewH = Math.max(1, this.viewport?.height || 1);
+
+    this.plane.scale.x = (viewW * this.planeWidth) / screenW;
+    this.plane.scale.y = (viewH * this.planeHeight) / screenH;
 
     this.plane.position.x = 0;
-    this.plane.program.uniforms.uPlaneSize.value = [this.plane.scale.x, this.plane.scale.y];
+    if (this.plane.program?.uniforms?.uPlaneSize) {
+      this.plane.program.uniforms.uPlaneSize.value = [this.plane.scale.x, this.plane.scale.y];
+    }
   }
 
   onResize({ screen, viewport }: { screen?: ScreenSize; viewport?: ViewportSize } = {}) {
     if (screen) this.screen = screen;
-    if (viewport) {
-      this.viewport = viewport;
-      this.plane.program.uniforms.uViewportSize.value = [this.viewport.width, this.viewport.height];
-    }
+    if (viewport) this.viewport = viewport;
     this.setScale();
 
     this.padding = 5;
@@ -482,9 +497,19 @@ class Canvas {
     this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
 
     if (this.medias) {
-      this.medias.forEach(media => media.update(this.scroll));
+      this.medias.forEach(media => {
+        try {
+          media.update(this.scroll);
+        } catch {
+          // safe ignore
+        }
+      });
     }
-    this.renderer.render({ scene: this.scene, camera: this.camera });
+    try {
+      this.renderer.render({ scene: this.scene, camera: this.camera });
+    } catch {
+      // safe ignore
+    }
     this.scroll.last = this.scroll.current;
     this.rafId = requestAnimationFrame(this.update);
   }

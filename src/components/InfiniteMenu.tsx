@@ -735,7 +735,20 @@ class InfiniteGridMenu {
       images.forEach((img, i) => {
         const x = (i % this.atlasSize) * cellSize;
         const y = Math.floor(i / this.atlasSize) * cellSize;
-        ctx.drawImage(img, x, y, cellSize, cellSize);
+        if (img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
+          ctx.drawImage(img, x, y, cellSize, cellSize);
+        } else {
+          ctx.fillStyle = '#0F1219';
+          ctx.fillRect(x, y, cellSize, cellSize);
+          ctx.strokeStyle = '#FFB800';
+          ctx.lineWidth = 4;
+          ctx.strokeRect(x + 10, y + 10, cellSize - 20, cellSize - 20);
+          ctx.fillStyle = '#FFDCA1';
+          ctx.font = 'bold 32px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(this.items[i]?.title || 'Ghumo', x + cellSize / 2, y + cellSize / 2);
+        }
       });
 
       gl.bindTexture(gl.TEXTURE_2D, this.tex);
