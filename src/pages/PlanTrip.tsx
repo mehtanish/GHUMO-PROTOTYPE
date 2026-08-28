@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
-import { MapPin, Calendar, Sparkles, ChevronRight } from 'lucide-react';
+import { MapPin, Calendar, Sparkles, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { addTrip } from '../store/tripStore';
 import type { Trip, TripDNA } from '../store/tripStore';
+import { ItineraryViewer } from '../components/ItineraryViewer';
 import './PlanTrip.css';
 
 const steps = [
@@ -16,6 +17,7 @@ const steps = [
   { id: 'companions', title: 'Who is travelling?' },
   { id: 'dna', title: 'Personalize this trip?' },
   { id: 'generating', title: 'Crafting your journey...' },
+  { id: 'review', title: 'Your Custom Itinerary' },
 ];
 
 export const PlanTrip: React.FC = () => {
@@ -33,6 +35,8 @@ export const PlanTrip: React.FC = () => {
     history: 50, culture: 50, food: 50, nature: 50, adventure: 50, relaxation: 50
   });
 
+  const [generatedTrip, setGeneratedTrip] = useState<Trip | null>(null);
+
   const nextStep = () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(curr => curr + 1);
@@ -41,7 +45,7 @@ export const PlanTrip: React.FC = () => {
       if (currentStep + 1 === 5) {
         setTimeout(() => {
           handleGenerateTrip();
-        }, 4000); // 4 seconds of fake AI generation
+        }, 3500); // 3.5 seconds of fake AI generation
       }
     }
   };
@@ -149,9 +153,9 @@ export const PlanTrip: React.FC = () => {
       ];
     }
 
-    const newTrip: Trip = {
+    const trip: Trip = {
       id: `trip_${Date.now()}`,
-      destination,
+      destination: destination || 'Jaipur, Rajasthan',
       startDate: startDate || new Date().toISOString().split('T')[0],
       endDate: endDate || new Date(Date.now() + 86400000 * 3).toISOString().split('T')[0],
       duration: 3,
@@ -161,8 +165,15 @@ export const PlanTrip: React.FC = () => {
       status: 'planning',
       itinerary: generatedItinerary
     };
-    
-    addTrip(newTrip);
+
+    setGeneratedTrip(trip);
+    setCurrentStep(6);
+  };
+
+  const handleSaveAndConfirm = () => {
+    if (generatedTrip) {
+      addTrip(generatedTrip);
+    }
     navigate('/app/trips');
   };
 
@@ -285,15 +296,48 @@ export const PlanTrip: React.FC = () => {
               <Sparkles size={48} color="var(--color-accent-gold)" />
             </div>
             <h2 className="mt-8">Understanding your preferences...</h2>
-            <p className="text-secondary mt-2">Exploring {destination} to find local experiences.</p>
+            <p className="text-secondary mt-2">Exploring {destination || 'India'} to find local experiences.</p>
             
             <div className="progress-bar-container mt-8">
               <motion.div 
                 className="progress-bar-fill"
                 initial={{ width: '0%' }}
                 animate={{ width: '100%' }}
-                transition={{ duration: 4, ease: "linear" }}
+                transition={{ duration: 3.5, ease: "linear" }}
               />
+            </div>
+          </motion.div>
+        );
+      case 6:
+        return (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="plan-review-step"
+          >
+            <div className="flex justify-between items-center mb-6">
+              <div>
+                <h2>Your Personalized Itinerary Is Ready! 🎉</h2>
+                <p className="text-secondary mt-1">Hover over the timeline to explore days and activities.</p>
+              </div>
+            </div>
+
+            {generatedTrip && (
+              <ItineraryViewer 
+                itinerary={generatedTrip.itinerary} 
+                destinationName={generatedTrip.destination}
+                accentColor="var(--color-accent-gold)"
+              />
+            )}
+
+            <div className="flex justify-end gap-4 mt-8">
+              <Button variant="outline" onClick={() => setCurrentStep(0)}>
+                Plan Another
+              </Button>
+              <Button variant="primary" onClick={handleSaveAndConfirm}>
+                <CheckCircle2 size={18} className="mr-2" /> Save & View in My Trips
+              </Button>
             </div>
           </motion.div>
         );

@@ -5,6 +5,7 @@ import { Button } from '../components/Button';
 import { Calendar, Users, DollarSign, ExternalLink } from 'lucide-react';
 import { getStoredTrips } from '../store/tripStore';
 import type { Trip } from '../store/tripStore';
+import { ItineraryViewer } from '../components/ItineraryViewer';
 import './MyTrips.css';
 
 type TabType = 'all' | 'upcoming' | 'planning' | 'completed';
@@ -100,30 +101,11 @@ export const MyTrips: React.FC = () => {
                 
                 {expandedTripId === trip.id && (
                   <div className="trip-itinerary mt-6 pt-6" style={{ borderTop: '1px solid var(--border-light)' }}>
-                    <h4 className="mb-4">Itinerary</h4>
-                    {trip.itinerary && trip.itinerary.length > 0 ? (
-                      <div className="itinerary-days" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                        {trip.itinerary.map(day => (
-                          <div key={day.day}>
-                            <h5 className="mb-3 text-secondary">Day {day.day} - {day.date}</h5>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                              {day.items.map(item => (
-                                <div key={item.id} style={{ padding: '0.75rem', background: 'var(--color-surface-hover)', borderRadius: 'var(--radius-sm)' }}>
-                                  <div className="flex justify-between items-center mb-1">
-                                    <span style={{ fontWeight: 600 }}>{item.activity}</span>
-                                    <span className="text-secondary text-sm">{item.time}</span>
-                                  </div>
-                                  <p className="text-sm text-secondary">{item.description}</p>
-                                  <div className="text-xs text-gold mt-2">{item.price}</div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-secondary">No itinerary planned yet.</p>
-                    )}
+                    <ItineraryViewer 
+                      itinerary={trip.itinerary || []} 
+                      destinationName={trip.destination}
+                      accentColor="var(--color-accent-gold)"
+                    />
                   </div>
                 )}
               </div>
