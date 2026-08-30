@@ -16,6 +16,7 @@ import { StudentGuides } from './pages/StudentGuides';
 import { Passport } from './pages/Passport';
 import { ImpactScore } from './pages/ImpactScore';
 import { FairPrice } from './pages/FairPrice';
+import { Hotels } from './pages/Hotels';
 import { Profile } from './pages/Profile';
 import { GuideLogin } from './pages/GuideLogin';
 import { GuidePortal } from './pages/GuidePortal';
@@ -60,6 +61,7 @@ const AppRoutes = () => {
           <Route path="ask-local" element={<AskLocal />} />
           <Route path="guides" element={<StudentGuides />} />
           <Route path="fair-price" element={<FairPrice />} />
+          <Route path="hotels" element={<Hotels />} />
           <Route path="trips" element={<MyTrips />} />
           <Route path="passport" element={<Passport />} />
           <Route path="impact" element={<ImpactScore />} />

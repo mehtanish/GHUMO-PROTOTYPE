@@ -1,0 +1,496 @@
+/* FairPrice.css - Buyer Protection, GI Registry Authenticator & Price Intelligence */
+
+.fairprice-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding-bottom: var(--spacing-16);
+}
+
+/* Header & Toggle Navigation */
+.authenticator-header {
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+}
+
+.authenticator-header h1 {
+  font-size: 2.75rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.auth-tab-switch {
+  display: inline-flex;
+  background: var(--color-surface);
+  border: 1px solid var(--border-light);
+  padding: 5px;
+  border-radius: var(--radius-full);
+  gap: 0.5rem;
+  margin: 1.5rem auto 0 auto;
+}
+
+.auth-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.auth-tab-btn:hover {
+  color: var(--text-primary);
+}
+
+.auth-tab-btn.active {
+  background: rgba(255, 184, 0, 0.14);
+  border: 1px solid var(--color-accent-gold);
+  color: var(--color-accent-gold);
+  box-shadow: 0 0 16px rgba(255, 184, 0, 0.25);
+}
+
+/* 2-Column GI Authenticator Layout */
+.authenticator-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .authenticator-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left Sidebar - Scan Selector */
+.scan-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.scan-list-card {
+  background: var(--color-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+
+.scan-list-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.scan-item-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  margin-top: 0.65rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.scan-item-btn:hover {
+  background: var(--color-surface-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(2px);
+}
+
+.scan-item-btn.selected {
+  background: rgba(255, 184, 0, 0.06);
+  border-color: var(--color-accent-gold);
+  box-shadow: 0 0 14px rgba(255, 184, 0, 0.15);
+}
+
+.scan-item-btn.selected-fake {
+  background: rgba(255, 107, 107, 0.06);
+  border-color: #ff6b6b;
+  box-shadow: 0 0 14px rgba(255, 107, 107, 0.15);
+}
+
+.item-badge-certified {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  background: rgba(42, 157, 143, 0.15);
+  border: 1px solid rgba(42, 157, 143, 0.4);
+  color: #2ec4b6;
+  white-space: nowrap;
+}
+
+.item-badge-unregistered {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  background: rgba(255, 75, 75, 0.15);
+  border: 1px solid rgba(255, 75, 75, 0.4);
+  color: #ff6b6b;
+  white-space: nowrap;
+}
+
+/* Scanner Simulation Viewport */
+.scanner-viewport {
+  background: linear-gradient(180deg, rgba(15, 25, 30, 0.8) 0%, rgba(8, 12, 18, 0.95) 100%);
+  border: 1px solid rgba(46, 196, 182, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 24px rgba(46, 196, 182, 0.08);
+}
+
+.scanner-viewport.is-fake {
+  border-color: rgba(255, 107, 107, 0.35);
+  box-shadow: 0 0 24px rgba(255, 107, 107, 0.08);
+}
+
+.scanner-laser-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #2ec4b6, transparent);
+  box-shadow: 0 0 12px #2ec4b6;
+  animation: scanAnim 2.2s infinite ease-in-out;
+}
+
+.scanner-viewport.is-fake .scanner-laser-line {
+  background: linear-gradient(90deg, transparent, #ff6b6b, transparent);
+  box-shadow: 0 0 12px #ff6b6b;
+}
+
+@keyframes scanAnim {
+  0% { top: 0%; opacity: 0.2; }
+  50% { top: 90%; opacity: 1; }
+  100% { top: 0%; opacity: 0.2; }
+}
+
+.scanner-target-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 0.5rem auto;
+  color: #2ec4b6;
+}
+
+.scanner-viewport.is-fake .scanner-target-icon {
+  color: #ff6b6b;
+}
+
+.scanner-label {
+  font-size: 0.825rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #2ec4b6;
+  text-transform: uppercase;
+}
+
+.scanner-viewport.is-fake .scanner-label {
+  color: #ff6b6b;
+}
+
+.camera-scan-btn {
+  margin-top: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: rgba(46, 196, 182, 0.15);
+  border: 1px solid rgba(46, 196, 182, 0.4);
+  color: #2ec4b6;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.camera-scan-btn:hover {
+  background: rgba(46, 196, 182, 0.25);
+  border-color: #2ec4b6;
+  transform: translateY(-1px);
+}
+
+/* Right Column - Product Verification Details Card */
+.registry-detail-card {
+  background: var(--color-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+}
+
+.registry-detail-card.certified {
+  border: 1px solid rgba(46, 196, 182, 0.4);
+}
+
+.registry-detail-card.fake {
+  border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
+.registry-status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.certified-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(46, 196, 182, 0.12);
+  border: 1px solid rgba(46, 196, 182, 0.35);
+  color: #2ec4b6;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fake-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 107, 107, 0.15);
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  color: #ff6b6b;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.product-hero-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.product-sub-category {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Regulated Price Box */
+.price-banner-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+}
+
+.regulated-price-val {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 0.25rem;
+}
+
+.authenticity-guarantee-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #2ec4b6;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Artisan Profile Section */
+.verified-artisan-section {
+  margin-top: 1.5rem;
+}
+
+.artisan-box-inner {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 600px) {
+  .artisan-box-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.artisan-avatar-img {
+  width: 68px;
+  height: 68px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  border: 2px solid var(--color-accent-gold);
+  background: var(--color-surface-hover);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.artisan-quote-text {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 1rem 0 1.5rem 0;
+  padding: 0 0.25rem;
+}
+
+/* Big Gold Action Button */
+.gold-support-btn {
+  width: 100%;
+  background: #FFB800 !important;
+  color: #05070A !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 0.95rem 1.5rem !important;
+  border-radius: var(--radius-full) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.6rem !important;
+  box-shadow: 0 4px 20px rgba(255, 184, 0, 0.3) !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.gold-support-btn:hover {
+  background: #ffc42e !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 184, 0, 0.45) !important;
+}
+
+/* Modal styling */
+.artisan-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 10, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.artisan-modal {
+  background: var(--color-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.75rem;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.support-amount-btn {
+  flex: 1;
+  padding: 0.65rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.support-amount-btn:hover, .support-amount-btn.active {
+  border-color: var(--color-accent-gold);
+  background: rgba(255, 184, 0, 0.15);
+  color: var(--color-accent-gold);
+}
+
+/* Camera Live Scanner Modal */
+.camera-scanner-modal {
+  background: var(--color-surface);
+  border: 1px solid rgba(46, 196, 182, 0.4);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 480px;
+  padding: 1.5rem;
+  box-shadow: 0 0 30px rgba(46, 196, 182, 0.2);
+  position: relative;
+}
+
+.camera-feed-box {
+  width: 100%;
+  height: 280px;
+  background: #000;
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera-video-elem {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-reticle-overlay {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  border: 2px solid rgba(46, 196, 182, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+
+.camera-scan-laser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2ec4b6;
+  box-shadow: 0 0 10px #2ec4b6;
+  animation: scanAnim 1.8s infinite ease-in-out;
+}
