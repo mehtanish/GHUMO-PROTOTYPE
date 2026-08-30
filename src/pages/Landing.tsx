@@ -5,7 +5,7 @@ import { SpecularButton } from '../components/SpecularButton';
 import { FlyingPosters } from '../components/FlyingPosters';
 import { Card } from '../components/Card';
 import { mockDestinations, themes } from '../store/mockData';
-import { MapPin, Star, Sparkles, Compass, Globe } from 'lucide-react';
+import { MapPin, Star, Sparkles, Compass } from 'lucide-react';
 import { motion } from 'framer-motion';
 import MaskedHeading from '../components/MaskedHeading/MaskedHeading';
 import TargetCursor from '../components/TargetCursor/TargetCursor';
