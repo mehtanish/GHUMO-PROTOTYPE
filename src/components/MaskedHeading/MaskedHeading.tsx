@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, type JSX } from 'react';
 import { gsap } from 'gsap';
 
 import './MaskedHeading.css';
@@ -287,7 +287,9 @@ const MaskedHeading: React.FC<MaskedHeadingProps> = ({
         {words.map((word, i) => (
           <span
             key={i}
-            ref={(el) => (wordRefs.current[i] = el)}
+            ref={(el) => {
+              wordRefs.current[i] = el;
+            }}
             className={`masked-heading__word ${word.replace(/[.,]/g, '').toUpperCase() === 'INDIA' ? 'fleur-de-leah-regular text-highlight-block' : ''}`}
           >
             {word}
