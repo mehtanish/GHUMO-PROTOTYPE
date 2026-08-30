@@ -643,7 +643,7 @@ class InfiniteGridMenu {
   }
 
   #init(onInit: ((menu: InfiniteGridMenu) => void) | null) {
-    const gl = this.canvas.getContext('webgl2', { antialias: true, alpha: true }) as WebGL2RenderingContext;
+    const gl = this.canvas.getContext('webgl2', { antialias: true, alpha: true, premultipliedAlpha: false }) as WebGL2RenderingContext;
     if (!gl) {
       throw new Error('No WebGL 2 context!');
     }
@@ -708,16 +708,59 @@ class InfiniteGridMenu {
 
   #initTexture() {
     const gl = this.gl;
-    this.tex = createAndSetupTexture(gl, gl.LINEAR, gl.LINEAR, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE);
+    this.tex = createAndSetupTexture(gl, gl.LINEAR_MIPMAP_LINEAR, gl.LINEAR, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE);
 
     const itemCount = Math.max(1, this.items.length);
     this.atlasSize = Math.ceil(Math.sqrt(itemCount));
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
     const cellSize = 512;
 
-    canvas.width = this.atlasSize * cellSize;
-    canvas.height = this.atlasSize * cellSize;
+    // Create a dark placeholder atlas so discs are visible immediately
+    const placeholderCanvas = document.createElement('canvas');
+    placeholderCanvas.width = this.atlasSize * cellSize;
+    placeholderCanvas.height = this.atlasSize * cellSize;
+    const pCtx = placeholderCanvas.getContext('2d');
+    if (pCtx) {
+      for (let i = 0; i < itemCount; i++) {
+        const x = (i % this.atlasSize) * cellSize;
+        const y = Math.floor(i / this.atlasSize) * cellSize;
+        // Dark gradient placeholder
+        const grad = pCtx.createRadialGradient(
+          x + cellSize / 2, y + cellSize / 2, 0,
+          x + cellSize / 2, y + cellSize / 2, cellSize * 0.6
+        );
+        grad.addColorStop(0, 'rgba(30, 36, 60, 1)');
+        grad.addColorStop(1, 'rgba(5, 8, 20, 1)');
+        pCtx.fillStyle = grad;
+        pCtx.beginPath();
+        pCtx.arc(x + cellSize / 2, y + cellSize / 2, cellSize / 2, 0, Math.PI * 2);
+        pCtx.fill();
+        // Gold ring
+        pCtx.strokeStyle = 'rgba(255, 184, 0, 0.4)';
+        pCtx.lineWidth = 6;
+        pCtx.beginPath();
+        pCtx.arc(x + cellSize / 2, y + cellSize / 2, cellSize / 2 - 12, 0, Math.PI * 2);
+        pCtx.stroke();
+        // Label
+        pCtx.fillStyle = 'rgba(255, 220, 161, 0.8)';
+        pCtx.font = 'bold 28px sans-serif';
+        pCtx.textAlign = 'center';
+        pCtx.textBaseline = 'middle';
+        pCtx.fillText(this.items[i]?.title || 'Ghumo', x + cellSize / 2, y + cellSize / 2);
+      }
+    }
+
+    gl.bindTexture(gl.TEXTURE_2D, this.tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, placeholderCanvas);
+    gl.generateMipmap(gl.TEXTURE_2D);
+
+    // Load real images and update texture
+    const mainCanvas = document.createElement('canvas');
+    mainCanvas.width = this.atlasSize * cellSize;
+    mainCanvas.height = this.atlasSize * cellSize;
+    const ctx = mainCanvas.getContext('2d');
+    if (ctx && placeholderCanvas.getContext('2d')) {
+      ctx.drawImage(placeholderCanvas, 0, 0);
+    }
 
     Promise.all(
       this.items.map(
@@ -737,22 +780,11 @@ class InfiniteGridMenu {
         const y = Math.floor(i / this.atlasSize) * cellSize;
         if (img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
           ctx.drawImage(img, x, y, cellSize, cellSize);
-        } else {
-          ctx.fillStyle = '#0F1219';
-          ctx.fillRect(x, y, cellSize, cellSize);
-          ctx.strokeStyle = '#FFB800';
-          ctx.lineWidth = 4;
-          ctx.strokeRect(x + 10, y + 10, cellSize - 20, cellSize - 20);
-          ctx.fillStyle = '#FFDCA1';
-          ctx.font = 'bold 32px sans-serif';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(this.items[i]?.title || 'Ghumo', x + cellSize / 2, y + cellSize / 2);
         }
       });
 
       gl.bindTexture(gl.TEXTURE_2D, this.tex);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, mainCanvas);
       gl.generateMipmap(gl.TEXTURE_2D);
     });
   }
@@ -815,8 +847,11 @@ class InfiniteGridMenu {
     if (!gl) return;
     gl.useProgram(this.discProgram);
 
-    gl.enable(gl.CULL_FACE);
     gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    // Disable face culling so discs are visible from both sides
+    gl.disable(gl.CULL_FACE);
 
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -1004,7 +1039,6 @@ export const InfiniteMenu: React.FC<InfiniteMenuProps> = ({
         position: 'relative',
         width: '100%',
         height: '100%',
-        backgroundColor,
         ['--infinite-menu-background' as any]: backgroundColor
       }}
     >

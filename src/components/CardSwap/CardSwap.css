@@ -1,0 +1,203 @@
+.card-swap-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(5%, 20%);
+  transform-origin: bottom right;
+
+  perspective: 900px;
+  overflow: visible;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 12px;
+  border: 1px solid #fff;
+  background: #000;
+
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  .card-swap-container {
+    transform: scale(0.75) translate(25%, 25%);
+  }
+}
+
+@media (max-width: 480px) {
+  .card-swap-container {
+    transform: scale(0.55) translate(25%, 25%);
+  }
+}
+
+/* ==========================================================================
+   Login Loading Screen Styling
+   ========================================================================== */
+.login-loading-screen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #101424 0%, #060913 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+.login-loading-screen::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 184, 0, 0.05) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.login-loading-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 960px;
+  gap: 4rem;
+}
+
+.login-loading-left {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.login-loading-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  position: relative;
+}
+
+.login-loading-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.03em;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.login-loading-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+  margin: 0.5rem 0 0;
+}
+
+.login-loading-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.login-loading-step {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.login-loading-step--active {
+  background: rgba(255, 184, 0, 0.05);
+  border-color: rgba(255, 184, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(255, 184, 0, 0.08);
+}
+
+.login-loading-step--done {
+  background: rgba(42, 157, 143, 0.03);
+  border-color: rgba(42, 157, 143, 0.25);
+}
+
+.step-indicator {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.login-loading-step--active .step-indicator {
+  border-color: var(--color-accent-gold, #FFB800);
+  color: var(--color-accent-gold, #FFB800);
+  box-shadow: 0 0 10px rgba(255, 184, 0, 0.3);
+}
+
+.login-loading-step--done .step-indicator {
+  border-color: #2A9D8F;
+  background: #2A9D8F;
+  color: #fff;
+}
+
+.step-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.login-loading-step--active .step-text {
+  color: #fff;
+}
+
+.login-loading-step--done .step-text {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 868px) {
+  .login-loading-container {
+    flex-direction: column;
+    justify-content: center;
+    gap: 3.5rem;
+    text-align: center;
+  }
+
+  .login-loading-steps {
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .login-loading-right {
+    height: 320px;
+    width: 100%;
+  }
+
+  .login-loading-right .card-swap-container {
+    bottom: auto;
+    right: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    transform-origin: center center;
+  }
+}

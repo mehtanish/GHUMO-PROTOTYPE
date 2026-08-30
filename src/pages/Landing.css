@@ -19,6 +19,8 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
 }
 
 .hero-img {
@@ -52,6 +54,12 @@
   font-size: clamp(3rem, 5vw, 4.5rem);
   margin-bottom: var(--spacing-4);
   text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.hero-masked-title {
+  max-width: 800px;
+  margin-bottom: var(--spacing-4);
+  font-family: var(--font-heading);
 }
 
 .hero-subtitle {

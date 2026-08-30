@@ -26,8 +26,11 @@ export const PlanTrip: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   
   // Form State
+  const queryParams = new URLSearchParams(window.location.search);
+  const urlStartDate = queryParams.get('startDate') || '';
+
   const [destination, setDestination] = useState('');
-  const [startDate, setStartDate] = useState('');
+  const [startDate, setStartDate] = useState(urlStartDate);
   const [endDate, setEndDate] = useState('');
   const [budget, setBudget] = useState('Standard (₹5,000 - ₹10,000/day)');
   const [companions, setCompanions] = useState('Couple');

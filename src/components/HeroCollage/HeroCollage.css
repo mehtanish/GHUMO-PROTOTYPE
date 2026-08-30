@@ -1,0 +1,52 @@
+.hero-collage-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-collage-image-wrapper {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  /* Use negative margin to overlap images slightly so they blend together */
+  margin-left: -5%;
+  margin-right: -5%;
+}
+
+.hero-collage-image-wrapper:first-child {
+  margin-left: 0;
+}
+
+.hero-collage-image-wrapper:last-child {
+  margin-right: 0;
+}
+
+.hero-collage-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 
+  Apply a horizontal mask to fade the left and right edges.
+  The first image only fades the right edge, the last image only fades the left edge.
+*/
+.hero-collage-image-wrapper:first-child .hero-collage-image {
+  -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
+  mask-image: linear-gradient(to right, black 80%, transparent 100%);
+}
+
+.hero-collage-image-wrapper:last-child .hero-collage-image {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%);
+  mask-image: linear-gradient(to right, transparent 0%, black 20%);
+}
+
+.hero-collage-image-wrapper:not(:first-child):not(:last-child) .hero-collage-image {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+}

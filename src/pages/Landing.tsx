@@ -3,100 +3,101 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { SpecularButton } from '../components/SpecularButton';
 import { FlyingPosters } from '../components/FlyingPosters';
-import { InfiniteMenu } from '../components/InfiniteMenu';
-import type { InfiniteMenuItem } from '../components/InfiniteMenu';
 import { Card } from '../components/Card';
 import { mockDestinations, themes } from '../store/mockData';
 import { MapPin, Star, Sparkles, Compass, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
+import MaskedHeading from '../components/MaskedHeading/MaskedHeading';
+import TargetCursor from '../components/TargetCursor/TargetCursor';
+import { Particles } from '../components/Particles';
+import DriftWall from '../components/DriftWall';
 import './Landing.css';
 
-const INFINITE_MENU_ITEMS: InfiniteMenuItem[] = [
-  {
-    image: 'https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=600&h=600&fit=crop&auto=format',
-    link: '/app/explore',
-    title: 'Kashmir Valley',
-    description: 'Snow-capped peaks, shikara boat cruises & cedar houseboats on pristine Dal Lake.'
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=600&h=600&fit=crop&auto=format',
-    link: '/app/explore',
-    title: 'Jaipur Forts',
-    description: 'Amber sandstone ramparts, mirror palaces and royal Rajasthani heritage feasts.'
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=600&h=600&fit=crop&auto=format',
-    link: '/app/explore',
-    title: 'Udaipur Palaces',
-    description: 'Floating marble palaces, sunset cruises on Lake Pichola and Mewar miniature art.'
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1561361066-608b411d7395?q=80&w=600&h=600&fit=crop&auto=format',
-    link: '/app/explore',
-    title: 'Varanasi Ghats',
-    description: 'Spiritual dawn boat rides, evening Ganga aarti and ancient labyrinth alleys.'
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=600&h=600&fit=crop&auto=format',
-    link: '/app/explore',
-    title: 'Kerala Waters',
-    description: 'Tranquil palm-fringed backwaters, spice plantations and coastal lagoons.'
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1509233725247-49e657c54213?q=80&w=600&h=600&fit=crop&auto=format',
-    link: '/app/explore',
-    title: 'Thar Desert',
-    description: 'Golden dunes under starry skies, folk song campfire nights and camel safaris.'
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=600&h=600&fit=crop&auto=format',
-    link: '/app/explore',
-    title: 'Taj Mahal',
-    description: 'Iconic marble monument of love, Mughal symmetrical gardens and Yamuna sunsets.'
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1600100397608-f010f443bbf6?q=80&w=600&h=600&fit=crop&auto=format',
-    link: '/app/explore',
-    title: 'Hampi Ruins',
-    description: 'UNESCO boulders, Vijayanagara stone temples and ancient chariot monoliths.'
-  }
-];
 
 const FLYING_POSTER_ITEMS = [
   'https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=800&auto=format&fit=crop', // Kashmir Dal Lake
   'https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=800&auto=format&fit=crop', // Jaipur Amer Fort
   'https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=800&auto=format&fit=crop', // Udaipur Lake Palace
-  'https://images.unsplash.com/photo-1561361066-608b411d7395?q=80&w=800&auto=format&fit=crop', // Varanasi Ganga Ghats
+  'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=800&auto=format&fit=crop', // Varanasi Ganga Ghats
   'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=800&auto=format&fit=crop', // Kerala Backwaters
-  'https://images.unsplash.com/photo-1600100397608-f010f443bbf6?q=80&w=800&auto=format&fit=crop', // Hampi Ancient Stone
+  'https://images.unsplash.com/photo-1500313830540-7b6650a74fd0?q=80&w=800&auto=format&fit=crop', // Hampi Ancient Stone
   'https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=800&auto=format&fit=crop', // Taj Mahal Agra
-  'https://images.unsplash.com/photo-1509233725247-49e657c54213?q=80&w=800&auto=format&fit=crop'  // Thar Desert Golden Dunes
+  'https://images.unsplash.com/photo-1509233725247-49e657c54213?q=80&w=800&auto=format&fit=crop', // Thar Desert Golden Dunes
+  'https://images.unsplash.com/photo-1598324789736-4861f89564a0?q=80&w=800&auto=format&fit=crop', // Gujarat
+  'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=800&auto=format&fit=crop', // Kolkata
+  'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=800&auto=format&fit=crop'  // Taj Mahal Hero
 ];
+
+const DRIFT_WALL_ITEMS = FLYING_POSTER_ITEMS.map((url, i) => ({
+  image: url,
+  title: `Destination ${i + 1}`
+}));
 
 export const Landing: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="landing-page">
+    <div className="landing-page" style={{ position: 'relative' }}>
+      <Particles
+        style={{ position: 'fixed', inset: 0, zIndex: 0 }}
+        quantity={100}
+        ease={80}
+        color="#ffffff"
+        refresh
+      />
+      <TargetCursor 
+        spinDuration={2}
+        hideDefaultCursor={true}
+        parallaxOn={true}
+      />
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-background">
-          <img 
-            src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=2071&auto=format&fit=crop" 
-            alt="India Heritage" 
-            className="hero-img"
+          <DriftWall
+            items={DRIFT_WALL_ITEMS}
+            columns={5}
+            tileWidth={350}
+            tileHeight={230}
+            gap={24}
+            tilt={12}
+            turn={-10}
+            perspective={1000}
+            depth={150}
+            speed={50}
+            direction="up"
+            variance={0.6}
+            parallax={0.8}
+            lift={80}
+            fade={0.3}
+            dim={1.0}
+            overlayColor="transparent"
+            radius={20}
+            roll={0}
+            pauseOnHover={true}
+            grayscale={false}
           />
           <div className="hero-overlay"></div>
         </div>
         
         <div className="hero-content">
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            Experience India Like a Local.
-          </motion.h1>
+          <MaskedHeading
+            text="Experience INDIA Like a local."
+            tag="h1"
+            src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=2071&auto=format&fit=crop"
+            fillScale={1.3}
+            parallax={30}
+            drift={14}
+            brightness={1.4}
+            saturation={1.2}
+            reveal="rise"
+            trigger="auto"
+            align="center"
+            weight={500}
+            tracking={0.02}
+            lineHeight={1.1}
+            textScale={0.1}
+            className="hero-masked-title"
+          />
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -117,13 +118,14 @@ export const Landing: React.FC = () => {
               tint="var(--color-accent-gold)" 
               tintOpacity={0.2} 
               lineColor="#FFDCA1" 
-              baseColor="rgba(255, 184, 0, 0.5)" 
+              baseColor="#FFB800" 
               textColor="#FFF" 
+              className="cursor-target"
               onClick={() => navigate('/login')}
             >
               Plan My Trip
             </SpecularButton>
-            <Button size="lg" variant="glass" onClick={() => document.getElementById('flying-showcase')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button size="lg" variant="glass" className="cursor-target" onClick={() => document.getElementById('flying-showcase')?.scrollIntoView({ behavior: 'smooth' })}>
               Explore 3D Odyssey
             </Button>
           </motion.div>
@@ -168,7 +170,7 @@ export const Landing: React.FC = () => {
         
         <div className="destinations-grid">
           {mockDestinations.map(dest => (
-            <Card key={dest.id} variant="interactive" padding="none" className="destination-card">
+            <Card key={dest.id} variant="interactive" padding="none" className="destination-card cursor-target">
               <div className="destination-img-container">
                 <img src={dest.image} alt={dest.name} className="destination-img" />
                 <div className="destination-overlay">
@@ -189,28 +191,6 @@ export const Landing: React.FC = () => {
         </div>
       </section>
 
-      {/* 3D Infinite Destination Sphere Menu */}
-      <section className="infinite-menu-showcase-section">
-        <div className="section-header text-center">
-          <div className="showcase-badge mb-3">
-            <Globe size={14} className="text-gold mr-1" />
-            <span>INFINITE 3D DESTINATIONS SPHERE</span>
-          </div>
-          <h2 className="section-title">Infinite Journeys</h2>
-          <p className="text-secondary max-w-xl mx-auto mt-2">
-            Rotate the spherical holographic menu to explore curated travel hubs across India. Click the center action button to embark.
-          </p>
-        </div>
-
-        <div className="infinite-menu-container-box">
-          <InfiniteMenu 
-            items={INFINITE_MENU_ITEMS}
-            scale={0.92}
-            backgroundColor="transparent"
-            onItemClick={() => navigate('/login')}
-          />
-        </div>
-      </section>
 
       {/* India is Not One Destination */}
       <section className="landing-section bg-surface">
@@ -221,7 +201,7 @@ export const Landing: React.FC = () => {
 
         <div className="themes-grid">
           {themes.map(theme => (
-            <div key={theme.name} className="theme-card">
+            <div key={theme.name} className="theme-card cursor-target">
               <img src={theme.image} alt={theme.name} className="theme-img" />
               <div className="theme-overlay">
                 <h3>{theme.name}</h3>
@@ -246,7 +226,7 @@ export const Landing: React.FC = () => {
               <li>Hidden Gems</li>
             </ul>
             <div className="mt-8">
-              <SpecularButton size="lg" onClick={() => navigate('/register')}>
+              <SpecularButton size="lg" className="cursor-target" onClick={() => navigate('/register')}>
                 Start Your Journey
               </SpecularButton>
             </div>

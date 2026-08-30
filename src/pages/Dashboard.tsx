@@ -5,6 +5,8 @@ import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { SpecularButton } from '../components/SpecularButton';
 import { AnimatedNumber } from '../components/AnimatedNumber';
+import MagicBento from '../components/MagicBento/MagicBento';
+import { MiniCalendar } from '../components/MiniCalendar/MiniCalendar';
 import { getStoredTrips } from '../store/tripStore';
 import { getGuidesHiredCount } from '../store/guideStore';
 import { 
@@ -28,12 +30,12 @@ export const Dashboard: React.FC = () => {
   const hasUpcomingTrip = false; // Mock state
 
   const quickActions = [
-    { name: 'Plan a Trip', icon: Calendar, path: '/app/plan', color: '#F8961E' },
-    { name: 'Ask AI', icon: MessageSquareText, path: '/app/ai', color: '#4361EE' },
-    { name: 'Ask a Local', icon: Users, path: '/app/ask-local', color: '#7209B7' },
-    { name: 'Find a Guide', icon: MapPin, path: '/app/guides', color: '#2A9D8F' },
-    { name: 'Fair Price Check', icon: DollarSign, path: '/app/fair-price', color: '#E76F51' },
-    { name: 'Explore Nearby', icon: Map, path: '/app/explore', color: '#3F37C9' },
+    { name: 'Plan a Trip', icon: Calendar, path: '/app/plan', label: 'Calendar', desc: 'Create custom itineraries with local student suggestions' },
+    { name: 'Ask AI', icon: MessageSquareText, path: '/app/ai', label: 'Sparkles', desc: 'Real-time answers about culture, transit, and local safety' },
+    { name: 'Ask a Local', icon: Users, path: '/app/ask-local', label: 'Community', desc: 'Connect with resident students for direct advice' },
+    { name: 'Find a Guide', icon: MapPin, path: '/app/guides', label: 'Tours', desc: 'Hire vetted student guides for authentic tours' },
+    { name: 'Fair Price Check', icon: DollarSign, path: '/app/fair-price', label: 'Finance', desc: 'Calculate transport fares and local prices instantly' },
+    { name: 'Explore Nearby', icon: Map, path: '/app/explore', label: 'Map', desc: 'Discover hidden gems and local student hangouts' },
   ];
 
   return (
@@ -73,24 +75,38 @@ export const Dashboard: React.FC = () => {
           )}
         </Card>
 
-        {/* Quick Actions Grid */}
+        {/* Quick Actions Bento Grid */}
         <section className="dashboard-section mt-8">
           <h3 className="section-label">Quick Actions</h3>
-          <div className="quick-actions-grid">
-            {quickActions.map(action => (
-              <Card 
-                key={action.name} 
-                variant="interactive" 
-                className="quick-action-card"
-                onClick={() => navigate(action.path)}
-              >
-                <div className="quick-action-icon" style={{ backgroundColor: `${action.color}20`, color: action.color }}>
-                  <action.icon size={24} />
-                </div>
-                <h4>{action.name}</h4>
-              </Card>
-            ))}
-          </div>
+          <MagicBento
+            textAutoHide={true}
+            enableStars={true}
+            enableSpotlight={true}
+            enableBorderGlow={true}
+            enableTilt={false}
+            enableMagnetism={false}
+            clickEffect={true}
+            spotlightRadius={400}
+            particleCount={12}
+            glowColor="255, 184, 0"
+            cards={quickActions.map(action => ({
+              title: action.name,
+              description: action.desc,
+              label: action.label,
+              onClick: () => navigate(action.path),
+              icon: <action.icon size={16} className="text-gold" />,
+              color: 'rgba(20, 26, 48, 0.6)',
+              customContent: action.name === 'Plan a Trip' ? (
+                <MiniCalendar onDateSelect={(date) => {
+                  // Adjust timezone offset to get the correct YYYY-MM-DD string local to user's select
+                  const offset = date.getTimezoneOffset();
+                  const localDate = new Date(date.getTime() - (offset * 60 * 1000));
+                  const formattedDate = localDate.toISOString().split('T')[0];
+                  navigate(`/app/plan?startDate=${formattedDate}`);
+                }} />
+              ) : undefined
+            }))}
+          />
         </section>
 
         {/* Stats Grid */}

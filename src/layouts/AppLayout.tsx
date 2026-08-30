@@ -8,6 +8,7 @@ import {
 import { useAuthContext } from '../context/AuthContext';
 import { Button } from '../components/Button';
 import { WhatCanIDoModal } from '../components/WhatCanIDoModal';
+import GhostFibers from '../components/GhostFibers';
 import './AppLayout.css';
 
 export const AppLayout: React.FC = () => {
@@ -36,12 +37,43 @@ export const AppLayout: React.FC = () => {
   ];
 
   return (
-    <div className="app-layout">
+    <div className="app-layout" style={{ position: 'relative' }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
+        <GhostFibers
+          lineColor="#140E35"
+          glowColor="#3437A0"
+          speed={0.2}
+          scale={2}
+          rotation={0}
+          rotationSpeed={0.25}
+          layers={4}
+          waveAmplitude={0.015}
+          waveFrequency={3}
+          waveSpeed={0.15}
+          layerSpeed={0.08}
+          twist={0.1}
+          twistFrequency={5}
+          twistSpeed={1.2}
+          lineFrequency={5}
+          lineSpacing={2}
+          lineSharpness={16}
+          glowFalloff={10}
+          glowIntensity={1.6}
+          brightness={2}
+          blueBoost={1.25}
+          vignette={0.8}
+          grain={0.05}
+          dpr={1}
+          lightMode={false}
+          fps={60}
+          paused={false}
+        />
+      </div>
       {/* Mobile sidebar toggle */}
       <div className="mobile-header md-hidden">
         <div className="logo-container">
           <Compass className="logo-icon" size={24} />
-          <span className="logo-text">Ghumo</span>
+          <span className="logo-text playfair-display-sc-bold">Ghumo</span>
         </div>
         <button className="menu-btn" onClick={() => setSidebarOpen(true)}>
           <Menu size={24} />
@@ -53,7 +85,7 @@ export const AppLayout: React.FC = () => {
         <div className="sidebar-header">
           <div className="logo-container">
             <Compass className="logo-icon" size={28} />
-            <span className="logo-text">Ghumo</span>
+            <span className="logo-text playfair-display-sc-bold">Ghumo</span>
           </div>
           <button className="close-btn md-hidden" onClick={() => setSidebarOpen(false)}>
             <X size={24} />

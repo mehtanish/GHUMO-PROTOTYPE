@@ -5,6 +5,7 @@
   overflow: hidden;
   border-radius: var(--radius-lg, 24px);
   user-select: none;
+  background: radial-gradient(ellipse at 50% 40%, rgba(20, 26, 48, 0.95) 0%, rgba(5, 8, 20, 0.98) 100%);
 }
 
 #infinite-grid-menu-canvas {
@@ -15,6 +16,7 @@
   position: relative;
   outline: none;
   display: block;
+  background: transparent;
 }
 
 #infinite-grid-menu-canvas:active {
