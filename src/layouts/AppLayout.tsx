@@ -3,7 +3,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { 
   Compass, LayoutDashboard, Map, MapPin, 
   MessageSquareText, Users, DollarSign, Calendar, 
-  Award, Heart, Settings, LogOut, Search, Bell, Menu, X, Sparkles
+  Award, Heart, Settings, LogOut, Search, Bell, Menu, X, Sparkles, Building2
 } from 'lucide-react';
 import { useAuthContext } from '../context/AuthContext';
 import { Button } from '../components/Button';
@@ -30,6 +30,7 @@ export const AppLayout: React.FC = () => {
     { name: 'Ask a Local', path: '/app/ask-local', icon: Users },
     { name: 'Student Guides', path: '/app/guides', icon: Users },
     { name: 'Fair Price', path: '/app/fair-price', icon: DollarSign },
+    { name: 'Hotels', path: '/app/hotels', icon: Building2 },
     { name: 'My Trips', path: '/app/trips', icon: MapPin },
     { name: 'India Passport', path: '/app/passport', icon: Award },
     { name: 'Impact Score', path: '/app/impact', icon: Heart },

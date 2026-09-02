@@ -290,7 +290,7 @@ const MaskedHeading: React.FC<MaskedHeadingProps> = ({
             ref={(el) => {
               wordRefs.current[i] = el;
             }}
-            className={`masked-heading__word ${word.replace(/[.,]/g, '').toUpperCase() === 'INDIA' ? 'fleur-de-leah-regular text-highlight-block' : ''}`}
+            className={`masked-heading__word ${word.replace(/[.,]/g, '').toUpperCase() === 'INDIA' ? 'india-highlight-font playfair-display-sc-black' : ''}`}
           >
             {word}
             <i
